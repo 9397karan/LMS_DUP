@@ -30,7 +30,7 @@ const Course = () => {
   const getAllCourses = async () => {
     try {
       setIsLoading(true);
-      const response = await axios.get("http://localhost:5000/course");
+      const response = await axios.get("https://backend-dup.onrender.com/course");
       console.log(response.data);
       const courses = response.data.data;
 
