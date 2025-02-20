@@ -23,7 +23,7 @@ const Quiz = () => {
             return; 
         }
 
-        axios.get(`http://localhost:5000/api/questions/${courseId}`)
+        axios.get(`https://backend-dup.onrender.com/api/questions/${courseId}`)
             .then(res => {
                 setQuestions(res.data);
                 if (res.data.length > 0) {
@@ -38,7 +38,7 @@ const Quiz = () => {
     };
 
     const handleSubmit = () => {
-        axios.post('http://localhost:5000/api/questions/submit-quiz', { userId, courseId, answers })
+        axios.post('https://backend-dup.onrender.com/api/questions/submit-quiz', { userId, courseId, answers })
             .then(res => {
                 setScore(res.data.score);
                 setPassed(res.data.passed);
