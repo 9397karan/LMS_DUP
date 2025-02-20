@@ -46,7 +46,7 @@ const CourseTable = () => {
   }
   const handleDelete = async (id) => {
     try {
-      const response = await axios.delete(`http://localhost:5000/course/delete/${id}`);
+      const response = await axios.delete(`https://backend-dup.onrender.com/course/delete/${id}`);
       alert("Course Deleted")
       window.location.reload()
     } catch (error) {
