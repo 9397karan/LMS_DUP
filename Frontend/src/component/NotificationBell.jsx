@@ -14,7 +14,7 @@ const NotificationBell = ({ userId }) => {
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/notifications/${userId}`);
+        const res = await axios.get(`https://backend-dup.onrender.com/api/notifications/${userId}`);
       
         setNotifications(res.data);
 
@@ -54,7 +54,7 @@ const NotificationBell = ({ userId }) => {
 
   
     try {
-      await axios.put(`http://localhost:5000/api/notifications/reply/${selectedNotification}`, {
+      await axios.put(`https://backend-dup.onrender.com/api/notifications/reply/${selectedNotification}`, {
         senderId: userId,  // Ensure this is correctly sent
         meetingInfo
       });
@@ -62,7 +62,7 @@ const NotificationBell = ({ userId }) => {
       setShowPopup(false);
   
       // Refresh notifications after reply
-      const res = await axios.get(`http://localhost:5000/api/notifications/${userId}`);
+      const res = await axios.get(`https://backend-dup.onrender.com/api/notifications/${userId}`);
       setNotifications(res.data);
     } catch (err) {
       console.error("Error sending reply:", err.response?.data || err.message);
