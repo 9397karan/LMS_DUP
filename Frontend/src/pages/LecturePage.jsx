@@ -35,7 +35,7 @@ const LecturePage = () => {
   useEffect(() => {
     const fetchLectures = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/lecture/${courseId}`);
+        const response = await axios.get(`https://backend-dup.onrender.com/lecture/${courseId}`);
         const { lectures, course, playingLecture } = response.data;
 
         setLectures(lectures);
@@ -59,7 +59,7 @@ const LecturePage = () => {
   useEffect(() => {
     const fetchQuizResult = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/questions/quiz-result/${userId}/${courseId}`);
+        const res = await axios.get(`https://backend-dup.onrender.com/api/questions/quiz-result/${userId}/${courseId}`);
 
         if (res.data?.score !== undefined && res.data?.passingScore !== undefined && res.data?.passingScore !== 0) {
           setUserScore(res.data.score);
@@ -97,7 +97,7 @@ const LecturePage = () => {
         message: `A student has requested a call for the course: ${course.courseName}`,
       };
 
-      const res = await axios.post("http://localhost:5000/api/notifications/add", notificationData);
+      const res = await axios.post("https://backend-dup.onrender.com/api/notifications/add", notificationData);
       
       // Emit socket event
       socket.emit("send_notification", res.data);
