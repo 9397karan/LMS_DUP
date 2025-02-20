@@ -21,12 +21,7 @@ export const Room = () => {
     const zc = ZegoUIKitPrebuilt.create(kitToken);
     zc.joinRoom({
       container: element,
-      sharedLinks: [
-        {
-          name: "Meeting Link",
-          url: `http://localhost:5173/instructor/course/meeting/${roomID}`,
-        },
-      ],
+      
       scenario: {
         mode: ZegoUIKitPrebuilt.OneONoneCall,
       },
