@@ -4,20 +4,89 @@ import Course from "./Course";
 import Aboutus from "../assets/Aboutus.png";
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
 import Testimonial from "../component/Testimonial";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Link } from "react-router-dom";
 
+gsap.registerPlugin(ScrollTrigger);
 
 
 const Home = () => {
- 
+   const heroTextRef = useRef(null);
+  const heroImageRef = useRef(null);
+  const courseSectionRef = useRef(null);
+
+  useEffect(() => {
+  
+
+    // Set initial styles for the hero section elements
+    gsap.set([heroTextRef.current, heroImageRef.current], {
+      opacity: 0,
+    });
+
+    gsap.set(heroTextRef.current, {
+      x: -50, 
+      scale: 0.9, 
+    });
+
+    gsap.set(heroImageRef.current, {
+      x: 50, 
+      scale: 0.9, 
+    });
+
+    // Animate the hero text
+    gsap.to(heroTextRef.current, {
+      opacity: 1,
+      x: 0,
+      scale: 1,
+      duration: 1.2,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: heroTextRef.current,
+        start: "top 85%",
+      },
+    });
+
+    // Animate the hero image
+    gsap.to(heroImageRef.current, {
+      opacity: 1,
+      x: 0,
+      scale: 1,
+      duration: 1.2,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: heroImageRef.current,
+        start: "top 85%",
+      },
+    });
+
+    gsap.to(courseSectionRef.current, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: courseSectionRef.current,
+        start: "top 85%",
+      },
+    });
+
+   
+
+    // Refresh ScrollTrigger to ensure it works correctly
+    ScrollTrigger.refresh();
+  }, []);
+
 
   return (
     <>
       {/* Hero Section */}
-      <section className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 min-h-[90vh] flex items-center justify-center px-4 sm:px-8 xl:px-20 w-full">
+      <section className="bg-white dark:bg-gray-900 mt-12 text-gray-800 dark:text-gray-200 min-h-[90vh] flex items-center justify-center px-4 sm:px-8 xl:px-20 w-full">
   <div className="flex flex-col md:flex-row items-center max-w-7xl w-full mx-auto space-y-8 md:space-y-0 mt-8 md:space-x-12">
     {/* Text Content */}
-    <div className="text-center md:text-left flex-1 w-full px-4">
+    <div 
+    ref={heroTextRef} 
+    className="text-center md:text-left flex-1 w-full px-4">
       <h1 className="text-4xl sm:text-5xl xl:text-6xl font-bold leading-tight mb-6">
         Getting <span className="text-blue-600 dark:text-blue-400">Quality Education</span> Is Now More{" "}
         <span className="text-blue-600 dark:text-blue-400">Easy</span>
@@ -34,7 +103,7 @@ const Home = () => {
     </div>
 
     {/* Image Container */}
-    <div className="relative flex-1 flex justify-center w-full">
+    <div ref={heroImageRef} className="relative flex-1 flex justify-center w-full">
       <img
         src={Hero}
         alt="Hero"
@@ -46,7 +115,7 @@ const Home = () => {
 
 
       {/* Course Section */}
-      <section  >
+      <section ref={courseSectionRef} >
         <Course />
       </section>
 

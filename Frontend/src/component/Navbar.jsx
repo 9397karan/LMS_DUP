@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import DarkModeToggle from "./DarkModeToggle";
+import NotificationBell from "./NotificationBell"; // Import NotificationBell
 import { useNavigate } from "react-router-dom";
-import api from "@/utils/api";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -22,7 +22,6 @@ const Navbar = () => {
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
   const handleLogout = async () => {
-    await api.post("/user/logout");
     localStorage.removeItem("user");
     navigate("/login");
   };
@@ -41,29 +40,22 @@ const Navbar = () => {
   const handleDashboardNavigation = () => {
     if (user?.role === "instructor") {
       navigate("/instructor/dashboard");
-    }else if(user?.role === "admin"){
-      navigate("/admin")
-    } 
-    else {
+    } else {
       navigate("/user/dashboard");
     }
   };
-  
 
   return (
     <nav className="bg-white dark:bg-gray-800 fixed w-full top-0 left-0 z-10 p-4 px-6 md:px-36 shadow-md">
-      <div className="flex items-center justify-between max-w-7xl">
+      <div className="flex items-center justify-between ">
         <div onClick={() => navigate('/')} className="text-2xl font-bold text-blue-600 dark:text-blue-400 cursor-pointer">
           Codetec
         </div>
 
-        <div className="sm:hidden flex items-center">
-          <button onClick={toggleMenu} aria-label="Toggle menu">
-            {isMenuOpen ? <span className="text-2xl">&times;</span> : <span className="text-2xl">&#9776;</span>}
-          </button>
-        </div>
-
         <div className="hidden sm:flex items-center space-x-4">
+          {/* Notification Bell */}
+          {user && <NotificationBell userId={user._id} />}
+
           {user ? (
             <div className="relative" ref={dropdownRef}>
               <button onClick={toggleDropdown} className="flex items-center gap-3 dark:text-white" aria-expanded={isDropdownOpen}>
@@ -74,10 +66,10 @@ const Navbar = () => {
               </button>
               {isDropdownOpen && (
                 <div className="absolute right-0 w-48 mt-2 bg-white dark:bg-gray-700 text-black dark:text-white shadow-lg rounded-md">
-                  <button onClick={handleDashboardNavigation} className="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800">
+                  <button onClick={handleDashboardNavigation} className="block w-full text-left px-4 py-2 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800">
                     Dashboard
                   </button>
-                  <button onClick={() => navigate('/profile')} className="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800">
+                  <button onClick={() => navigate('/profile')} className="block w-full text-left px-4 py-2 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800">
                     Edit Profile
                   </button>
                   <button onClick={handleLogout} className="block w-full text-left px-4 py-2 text-red-500 hover:bg-gray-100 dark:hover:bg-gray-800">
@@ -97,37 +89,6 @@ const Navbar = () => {
             </>
           )}
           <DarkModeToggle />
-        </div>
-      </div>
-
-      <div className={`fixed top-0 right-0 h-full w-64 bg-white dark:bg-gray-800 shadow-lg transform ${isMenuOpen ? "translate-x-0" : "translate-x-full"} transition-transform duration-300 ease-in-out`}>
-        <button onClick={toggleMenu} className="absolute top-4 right-4" aria-label="Close menu">&times;</button>
-        <div className="mt-16 space-y-4 px-4">
-          {user? (
-            <>
-              <button onClick={handleDashboardNavigation} className="block w-full text-left px-4 py-2">
-                Dashboard
-              </button>
-              <button onClick={() => navigate('/profile')} className="block w-full text-left px-4 py-2">
-                Edit Profile
-              </button>
-              <button onClick={handleLogout} className="block w-full text-left px-4 py-2 text-red-500">
-                Logout
-              </button>
-            </>
-          ) : (
-            <>
-              <button onClick={() => navigate('/login')} className="block w-full text-left px-4 py-2 text-blue-600 border-b">
-                Sign In
-              </button>
-              <button onClick={() => navigate('/register')} className="block w-full text-left px-4 py-2 text-white bg-blue-500 rounded-md">
-                Register
-              </button>
-            </>
-          )}
-          <div className="mt-4">
-            <DarkModeToggle />
-          </div>
         </div>
       </div>
     </nav>

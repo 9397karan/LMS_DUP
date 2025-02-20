@@ -33,7 +33,7 @@ const CourseActions = ({ courseId, userId }) => {
   return (
     <div>
       {purchased ? (
-        <button onClick={handleContinueCourse} className="btn-primary w-full">
+        <button onClick={handleContinueCourse} className="bg-blue-500 hover:bg-blue-700 text-white mt-1 py-2 px-4 rounded">
           Continue Course
         </button>
       ) : (

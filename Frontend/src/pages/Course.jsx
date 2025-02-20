@@ -56,8 +56,8 @@ const Course = () => {
     <div className="bg-gray-100 dark:bg-gray-800">
       <div className="max-w-7xl m-auto p-6">
         <div className="flex justify-between items-center">
-          <h2 className="font-bold md:text-3xl text-2xl text-center mb-6 dark:text-white">
-            Popular courses for you
+          <h2 className="font-bold md:text-3xl text-2xl  text-center mb-6 dark:text-white">
+            Popular courses 
           </h2>
           <Link
             to="/courseexplore"

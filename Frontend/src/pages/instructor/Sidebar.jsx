@@ -16,6 +16,10 @@ const Sidebar = () => {
         <SquareLibrary size={22} />
         <h1 className="hidden sm:block">Courses</h1>
       </Link>
+      <Link to="course/meeting" className="flex items-center gap-2 dark:text-white">
+        <h1>📞</h1>
+        <h1 className="hidden sm:block">Create Meeting</h1>
+      </Link>
     </div>
   </div>
 
@@ -26,6 +30,10 @@ const Sidebar = () => {
     </Link>
     <Link to="course" className="flex items-center gap-2 dark:text-white">
       <SquareLibrary size={22} />
+    </Link>
+    <Link to="course/meeting" className="flex items-center gap-2 dark:text-white">
+    <h1>📞</h1>
+       
     </Link>
   </div>
 

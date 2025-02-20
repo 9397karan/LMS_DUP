@@ -4,6 +4,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { toast, ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { Navigate } from "react-router-dom";
+import img from "../assets/login.png";
+
 const Register = () => {
   const user = localStorage.getItem("user");
   const [formData, setFormData] = useState({
@@ -13,6 +15,7 @@ const Register = () => {
     role: "", 
   });
   const navigate = useNavigate();
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -28,48 +31,59 @@ const Register = () => {
     }
   };
 
-  return user ? <Navigate to="/"/>:(
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <form className="p-6 bg-white shadow-lg rounded-md" onSubmit={handleSubmit}>
-        <h2 className="text-xl font-bold mb-4">Register</h2>
-        <input
-          type="text"
-          name="name"
-          placeholder="Name"
-          value={formData.name}
-          onChange={handleChange}
-          className="w-full p-2 border mb-4 rounded"
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-          className="w-full p-2 border mb-4 rounded"
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-          className="w-full p-2 border mb-4 rounded"
-        />
-        <select
-          name="role"
-          value={formData.role}
-          onChange={handleChange}
-          className="w-full p-2 border mb-4 rounded"
-        >
-        <option>Select Option</option>
-          <option value="student">Student</option>
-          <option value="instructor">Instructor</option>
-        </select>
-        <button type="submit"   className="w-full bg-blue-500 text-white py-2 rounded" >
-          Register
-        </button>
-      </form>
+  return user ? (
+    <Navigate to="/" />
+  ) : (
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 mt-6 dark:bg-gray-900 p-6 transition-colors duration-500">
+      <div className="flex flex-col lg:flex-row bg-white dark:bg-gray-800 shadow-xl rounded-lg overflow-hidden w-full max-w-4xl">
+        <form className="p-8 w-full lg:w-1/2" onSubmit={handleSubmit}>
+          <h2 className="text-2xl font-extrabold mb-6 text-center text-gray-800 dark:text-gray-100">Register</h2>
+          <input
+            type="text"
+            name="name"
+            placeholder="Name"
+            value={formData.name}
+            onChange={handleChange}
+            className="w-full p-3 border mb-4 rounded bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleChange}
+            className="w-full p-3 border mb-4 rounded bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={handleChange}
+            className="w-full p-3 border mb-4 rounded bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+          <select
+            name="role"
+            value={formData.role}
+            onChange={handleChange}
+            className="w-full p-3 border mb-4 rounded bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          >
+            <option>Select Role</option>
+            <option value="student">Student</option>
+            <option value="instructor">Instructor</option>
+          </select>
+          <button
+            type="submit"
+            className="w-full bg-gradient-to-r from-blue-400 to-blue-600 hover:from-blue-500 hover:to-blue-700 text-white py-3 rounded transition-all duration-500 transform hover:scale-105 shadow-lg"
+          >
+            Register
+          </button>
+        </form>
+        <div className="w-2/4 flex items-center justify-center p-6 bg-gradient-to-r from-blue-300 to-blue-500 transition-colors duration-500">
+          <img src={img} alt="Illustration" className="w-4/4 " />
+        </div>
+
+      </div>
       <ToastContainer />
     </div>
   );

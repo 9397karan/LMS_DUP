@@ -9,10 +9,16 @@ const User = require('../models/userModel');
 
 router.get("/:id", async (req, res) => {
     try {
-        const { id } = req.params; // Course ID
-        
-        // Fetch all lectures associated with the course ID
-        const allLectures = await Lecture.find({ course: id }).populate('course');
+        const { id } = req.params; 
+      
+        const allLectures = await Lecture.find({ course: id }).populate({
+            path: "course",
+            populate: {
+                path: "creator", 
+                select: "name email photoUrl",
+            }
+
+        });
        const instructor=await User.find(allLectures[0].course.creator)
         
         if (!allLectures || allLectures.length === 0) {
@@ -23,7 +29,7 @@ router.get("/:id", async (req, res) => {
         
         res.status(200).json({
             message: 'All videos fetched successfully',
-            course: allLectures[0]?.course, // Assuming all lectures have the same course reference
+            course: allLectures[0]?.course, 
             lectures: allLectures,
             instructor:instructor
         });

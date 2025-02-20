@@ -8,7 +8,7 @@ import { Textarea } from "../../components/ui/textarea";
 import { Button } from "../../components/ui/button";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { Spinner } from "@/component/Spinner";
+import Spinner from "../../component/Spinner";
 
 const AddCoursePage = () => {
 

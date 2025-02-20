@@ -9,6 +9,7 @@ import {
 import { Activity, Book, UserCircle } from "lucide-react";
 import { useUser } from "@clerk/clerk-react";
 import api from "@/utils/api";
+import  Spinner  from "../../component/Spinner";
 
 const UserDashboard = () => {
   const { user, isLoaded, isSignedIn } = useUser();
@@ -81,7 +82,7 @@ const UserDashboard = () => {
           </CardHeader>
           <CardContent>
             <p className="text-3xl font-bold">
-              {isLoading ? "Loading..." : coursesInProgress}
+              {isLoading ? <Spinner/> : coursesInProgress}
             </p>
           </CardContent>
         </Card>
@@ -93,7 +94,7 @@ const UserDashboard = () => {
           </CardHeader>
           <CardContent>
             <p className="text-3xl font-bold">
-              {isLoading ? "Loading..." : `${progress}%`}
+              {isLoading ? <Spinner/> : `${progress}%`}
             </p>
           </CardContent>
         </Card>

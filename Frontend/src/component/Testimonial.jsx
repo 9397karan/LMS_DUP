@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-const person = [
+gsap.registerPlugin(ScrollTrigger);
+
+const testimonials = [
   {
     name: "Rehan Shaikh",
     role: "Backend Developer",
@@ -25,6 +29,29 @@ const person = [
 ];
 
 const Testimonial = () => {
+  const testimonialsRef = useRef([]);
+
+  useEffect(() => {
+    gsap.fromTo(
+      testimonialsRef.current,
+      { opacity: 0, y: 50, scale: 0.9 },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 1.2,
+        stagger: 0.3,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: testimonialsRef.current[0], // Starts when the first testimonial appears
+          start: "top 85%",
+        },
+      }
+    );
+
+    ScrollTrigger.refresh();
+  }, []);
+
   return (
     <section className="bg-gray-100 dark:bg-gray-800 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -37,26 +64,24 @@ const Testimonial = () => {
           </p>
         </div>
 
-        {/* Testimonial Cards */}
         <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {person.map((p, index) => (
+          {testimonials.map((person, index) => (
             <div
               key={index}
-              className="bg-white dark:bg-gray-600 shadow-lg rounded-2xl p-6 text-center flex flex-col items-center transform transition hover:scale-105"
+              ref={(el) => (testimonialsRef.current[index] = el)}
+              className="bg-white dark:bg-gray-600 shadow-lg rounded-2xl p-6 text-center flex flex-col items-center transform transition hover:scale-105 opacity-0"
             >
               <img
                 className="w-20 h-20 rounded-full object-cover"
-                src={p.image}
-                alt={p.name}
+                src={person.image}
+                alt={person.name}
               />
               <h3 className="mt-4 text-xl font-bold text-gray-800 dark:text-white">
-                {p.name}
+                {person.name}
               </h3>
-              <p className="text-gray-500 dark:text-gray-400 text-sm">{p.role}</p>
-              <p className="mt-4 text-gray-600 dark:text-gray-300">{p.testimonial}</p>
-              <button className="mt-6 bg-blue-600 text-white px-4 py-2 rounded-xl hover:bg-blue-700 dark:hover:bg-blue-500 transition">
-                Join Now
-              </button>
+              <p className="text-gray-500 dark:text-gray-400 text-sm">{person.role}</p>
+              <p className="mt-4 text-gray-600 dark:text-gray-300">{person.testimonial}</p>
+             
             </div>
           ))}
         </div>

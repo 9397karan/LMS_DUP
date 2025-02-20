@@ -16,7 +16,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { useEffect } from "react";
 import CourseActions from "@/component/CourseActions";
-import { Spinner } from "@/component/Spinner";
+import  Spinner  from "../component/Spinner";
 
 
 const CourseDetails = () => {

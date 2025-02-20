@@ -4,6 +4,8 @@ import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
 import api from "@/utils/api";
+import { Button } from "@/components/ui/button";
+import axios from "axios";
 
 
 const CourseTable = () => {
@@ -28,7 +30,7 @@ const CourseTable = () => {
     const fetchCourses = async () => {
       try {
         const response = await api.get(`/course/instructor/${instructorId}`);
-        const data = response.data; 
+        const data = response.data;
         setCourses(data.courses);
       } catch (err) {
         setError("No Courses");
@@ -39,19 +41,19 @@ const CourseTable = () => {
 
     fetchCourses();
   }, [instructorId]);
-const calculate=(price,stud)=>{
-  return price*stud;
-}
-const handleDelete=async(id)=>{
-try {
-  const response=await api.delete(`/course/delete/${id}`);
-  alert("Course Deleted")
-  window.location.reload()
-} catch (error) {
-  alert(error.message);
-}
+  const calculate = (price, stud) => {
+    return price * stud;
+  }
+  const handleDelete = async (id) => {
+    try {
+      const response = await axios.delete(`http://localhost:5000/course/delete/${id}`);
+      alert("Course Deleted")
+      window.location.reload()
+    } catch (error) {
+      alert(error.message);
+    }
 
-}
+  }
   return (
     <div className="p-6 mt-10 bg-gray-100 min-h-screen dark:bg-gray-800">
       <h1 className="text-2xl font-bold mb-6 text-gray-800 dark:text-white">Dashboard</h1>
@@ -91,16 +93,20 @@ try {
                       {course.enrolledUsers ? course.enrolledUsers.length : 0}
                     </td>
                     <td className="p-2 border border-gray-300 dark:border-gray-500 text-gray-800 dark:text-white">
-                      ₹{calculate(course?.coursePrice,course?.enrolledUsers.length)}
+                      ₹{calculate(course?.coursePrice, course?.enrolledUsers.length)}
                     </td>
                     <td className="p-2 border border-gray-300 dark:border-gray-500">
                       <div className="flex items-center gap-6">
-                          <Link to={`/instructor/course/edit/${course._id}`} className="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300">
-          <FaEdit size={25} />
-        </Link>
-                        <button className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300" onClick={()=>handleDelete(course?._id)}>
+
+                        <button className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300" onClick={() => handleDelete(course?._id)}>
                           <MdDelete size={25} />
                         </button>
+                        <Button asChild>
+                          <Link to={`/instructor/course/${course._id}/add_lessons`}>Add Lecture</Link>
+                        </Button>
+                        <Button asChild variant="outline">
+                          <Link to={`/instructor/course/${course._id}/addquestions`}>Add Question</Link>
+                        </Button>
                       </div>
                     </td>
                   </tr>

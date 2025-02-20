@@ -4,7 +4,7 @@ import { Label } from "../../components/ui/label";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import ReactPlayer from "react-player";
-import { Spinner } from "@/component/Spinner";
+import Spinner from "../../component/Spinner";
 
 const AddLesson = () => {
   const [title, setTitle] = useState("");
@@ -145,9 +145,7 @@ const AddLesson = () => {
           <h3 className="text-xl font-bold mt-6">Lectures</h3>
           {loading ? (
             <Spinner />
-          ) : error ? (
-            <p className="text-center text-red-500">{error}</p>
-          ) : lectures.length === 0 ? (
+          ) :  lectures.length === 0 ? (
             <p className="text-center text-gray-600">No lectures found. Start by adding a lesson.</p>
           ) : (
             lectures.map((lecture) => (

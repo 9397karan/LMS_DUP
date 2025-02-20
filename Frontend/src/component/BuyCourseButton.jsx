@@ -4,6 +4,7 @@ import React from "react";
 
 const stripePromise = loadStripe("pk_test_51Qmu74G7hLxsSjVpwP3gm11GcCsLOwSNXJNknNfyUo5g77SRdAjIpNKz05NMVFYhrqRpKfJtKFfSMVwcZF1gg9Dw00zCd3pN1K");
 
+
 const BuyCourseButton = ({ courseId, userId }) => {
   const handleCheckout = async () => {
     try {

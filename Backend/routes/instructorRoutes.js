@@ -8,7 +8,8 @@ const Lecture = require('../models/lessonModel');
 // Fetch all courses
 router.get("/", async (req, res) => {
     try {
-        const data = await Course.find({});
+        const data = await Course.find({}).
+        populate('creator');
         res.status(200).json({
             message: "All Courses",
             data
