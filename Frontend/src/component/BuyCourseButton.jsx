@@ -9,7 +9,7 @@ const BuyCourseButton = ({ courseId, userId }) => {
   const handleCheckout = async () => {
     try {
       const stripe = await stripePromise;
-      const response = await axios.post("http://localhost:5000/api/create-checkout-session", {
+      const response = await axios.post("https://backend-dup.onrender.com/api/create-checkout-session", {
         userId,
         courseId,
       });
