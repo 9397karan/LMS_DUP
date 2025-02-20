@@ -22,7 +22,7 @@ const CourseExplore = () => {
     const getAllCourses = async () => {
         try {
             setIsLoading(true);
-            const response = await axios.get("http://localhost:5000/course");
+            const response = await axios.get("https://backend-dup.onrender.com/course");
             const courses = response.data.data;
             console.log(courses);
             
