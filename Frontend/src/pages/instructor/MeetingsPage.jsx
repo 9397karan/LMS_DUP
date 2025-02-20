@@ -19,7 +19,7 @@ const MeetingsPage = () => {
 
   const fetchMeetings = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/meetings/instructor/${instructorId}`);
+      const res = await axios.get(`https://backend-dup.onrender.com/api/meetings/instructor/${instructorId}`);
       setMeetings(res.data);
     } catch (error) {
       console.error("Error fetching meetings:", error);
@@ -33,7 +33,7 @@ const MeetingsPage = () => {
     }
 
     try {
-      await axios.post("http://localhost:5000/api/meetings/create", {
+      await axios.post("https://backend-dup.onrender.com/api/meetings/create", {
         instructorId,
         meetingTitle,
         meetingTime,
@@ -48,7 +48,7 @@ const MeetingsPage = () => {
 
   const markAsCompleted = async (id) => {
     try {
-      await axios.put(`http://localhost:5000/api/meetings/complete/${id}`);
+      await axios.put(`https://backend-dup.onrender.com/api/meetings/complete/${id}`);
       fetchMeetings();
     } catch (error) {
       console.error("Error marking meeting as completed:", error);
@@ -57,7 +57,7 @@ const MeetingsPage = () => {
 
   const markAsUndone = async (id) => {
     try {
-      await axios.put(`http://localhost:5000/api/meetings/undo/${id}`);
+      await axios.put(`https://backend-dup.onrender.com/api/meetings/undo/${id}`);
       fetchMeetings();
     } catch (error) {
       console.error("Error marking meeting as undone:", error);
