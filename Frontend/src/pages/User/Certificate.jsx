@@ -17,7 +17,7 @@ const Certificate = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.post("http://localhost:5000/api/certificates", { userId, courseId });
+                const response = await axios.post("https://backend-dup.onrender.com/api/certificates", { userId, courseId });
                 if (response.status === 200) {
                     setUser(response.data.user);
                     setCourse(response.data.course);
