@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import Hero from "../assets/hero.png";
+
 import Course from "./Course";
 import Aboutus from "../assets/Aboutus.png";
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
@@ -105,7 +105,7 @@ const Home = () => {
     {/* Image Container */}
     <div ref={heroImageRef} className="relative flex-1 flex justify-center w-full">
       <img
-        src={Hero}
+        src=src="/Hero.png"
         alt="Hero"
         className="w-72 h-72 md:w-[500px] md:h-[500px] xl:h-[550px] mx-auto rounded-full object-cover"
       />
