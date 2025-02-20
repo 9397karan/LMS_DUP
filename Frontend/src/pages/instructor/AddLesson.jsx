@@ -23,7 +23,7 @@ const AddLesson = () => {
   const fetchLessons = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`http://localhost:5000/lecture/${courseId}`);
+      const response = await axios.get(`https://backend-dup.onrender.com/lecture/${courseId}`);
       setLectures(response?.data?.lectures || []);
     } catch (error) {
       console.log("Failed to fetch course details.");
@@ -51,7 +51,7 @@ const AddLesson = () => {
 
     try {
       const response = await axios.post(
-        `http://localhost:5000/course/${courseId}/add_lessons`,
+        `https://backend-dup.onrender.com/course/${courseId}/add_lessons`,
         formData,
         {
           headers: {
@@ -76,7 +76,7 @@ const AddLesson = () => {
   const handleDeleteLesson = async (lectureId, lessonId) => {
     try {
       const response = await axios.delete(
-        `http://localhost:5000/lecture/delete-lesson/${lectureId}/${lessonId}`
+        `https://backend-dup.onrender.com/lecture/delete-lesson/${lectureId}/${lessonId}`
       );
       if (response.status === 200) {
         alert("Lesson deleted successfully!");
