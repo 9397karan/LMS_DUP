@@ -105,7 +105,7 @@ const Home = () => {
     {/* Image Container */}
     <div ref={heroImageRef} className="relative flex-1 flex justify-center w-full">
       <img
-        src=src="/Hero.png"
+        src="/Hero.png"
         alt="Hero"
         className="w-72 h-72 md:w-[500px] md:h-[500px] xl:h-[550px] mx-auto rounded-full object-cover"
       />
