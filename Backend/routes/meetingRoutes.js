@@ -13,7 +13,7 @@ router.post("/create", async (req, res) => {
     }
 
     const meetingID = crypto.randomBytes(4).toString("hex"); // Generate unique meeting ID
-    const meetingLink = `https://lms-dup.onrender.com/meeting/${meetingID}`;
+    const meetingLink = `https://frontend-ds2x.onrender.com/meeting/${meetingID}`;
 
     const newMeeting = new Meeting({
       instructorId,
