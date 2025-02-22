@@ -31,6 +31,31 @@ router.get('/allusers',async(req,res)=>{
  })   
    }
 })
+router.post("/complete-course", async (req, res) => {
+    try {
+        const { userId, courseId } = req.body;
+
+        if (!userId || !courseId) {
+            return res.status(400).json({ message: "User ID and Course ID are required." });
+        }
+
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ message: "User not found." });
+        }
+
+        // Add course to completedCourses if not already present
+        if (!user.completedCourses.includes(courseId)) {
+            user.completedCourses.push(courseId);
+            await user.save();
+        }
+
+        res.status(200).json({ message: "Course marked as completed.", completedCourses: user.completedCourses });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Internal server error." });
+    }
+});
 
 router.post('/', async (req,res) => {
     try {
@@ -184,6 +209,20 @@ router.get("/course/:userId/", async (req, res) => {
       }
   
       res.status(200).json({ enrolledCourses: user.enrolledCourses });
+    } catch (error) {
+      res.status(500).json({ message: "Server error", error });
+    }
+  });
+  router.get("/courseCompleted/:userId/", async (req, res) => {
+    try {
+      const { userId } = req.params;
+      const user = await User.findById(userId).populate("completedCourses");
+  
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+  
+      res.status(200).json({ completedCourses: user.completedCourses });
     } catch (error) {
       res.status(500).json({ message: "Server error", error });
     }
