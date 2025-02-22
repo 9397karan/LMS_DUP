@@ -8,22 +8,34 @@ router.post("/create", async (req, res) => {
   try {
     const { instructorId, meetingTitle, meetingTime } = req.body;
 
+    // Validate required fields
     if (!instructorId || !meetingTitle || !meetingTime) {
       return res.status(400).json({ message: "All fields are required" });
     }
 
-    const meetingID = crypto.randomBytes(4).toString("hex"); // Generate unique meeting ID
+    // Parse meetingTime to ensure it's a valid date
+    const parsedMeetingTime = new Date(meetingTime);
+    if (isNaN(parsedMeetingTime.getTime())) {
+      return res.status(400).json({ message: "Invalid meeting time" });
+    }
+
+    // Generate unique meeting ID and link
+    const meetingID = crypto.randomBytes(4).toString("hex");
     const meetingLink = `https://frontend-ds2x.onrender.com/meeting/${meetingID}`;
 
+    // Create new meeting
     const newMeeting = new Meeting({
       instructorId,
       meetingTitle,
-      meetingTime,
+      meetingTime: parsedMeetingTime, // Use the parsed date
       meetingID,
       meetingLink,
     });
 
+    // Save the meeting to the database
     await newMeeting.save();
+
+    // Respond with success message and the created meeting
     res.status(201).json({ message: "Meeting Created", meeting: newMeeting });
   } catch (error) {
     console.error("Error creating meeting:", error);
