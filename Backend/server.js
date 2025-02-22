@@ -17,7 +17,7 @@ const app = express();
 const server = http.createServer(app); // Create HTTP server
 const io = new Server(server, {
   cors: {
-    origin: "https://frontend-ds2x.onrender.com/",
+    origin: "https://frontend-ds2x.onrender.com",
     credentials: true,
   },
 });
@@ -26,7 +26,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: "https://frontend-ds2x.onrender.com/",
+    origin: "https://frontend-ds2x.onrender.com",
     credentials: true,
   })
 );
