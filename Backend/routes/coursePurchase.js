@@ -39,8 +39,8 @@ router.post("/create-checkout-session", async (req, res) => {
         },
       ],
       mode: "payment",
-      success_url: `https://lms-dup.onrender.com/course-progress/${courseId}`, 
-      cancel_url: `https://lms-dup.onrender.com/course-detail/${courseId}`, 
+      success_url: `https://frontend-ds2x.onrender.com/course-progress/${courseId}`, 
+      cancel_url: `https://frontend-ds2x.onrender.com/course-detail/${courseId}`, 
       metadata: { courseId, userId },
     });
 
