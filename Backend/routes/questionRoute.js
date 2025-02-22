@@ -82,6 +82,7 @@ router.post('/submit-quiz', async (req, res) => {
 
 
 
+
 router.get("/quiz-result/:userId/:courseId", async (req, res) => {
     try {
         const { userId, courseId } = req.params;
@@ -89,15 +90,19 @@ router.get("/quiz-result/:userId/:courseId", async (req, res) => {
         const attempt = await QuizAttempt.findOne({ userId, courseId });
         const questions = await Question.find({ courseId });
 
-        if (!attempt && !questions) {
-            return res.json({ score: 0, passingScore: 0 }); 
+        if (!attempt || questions.length === 0) {
+            return res.json({ score: 0, passingScore: 0, passed: false }); 
         }
 
-        res.json({ score: attempt.score, passingScore:questions[0].passingScore , passed: score >= passingScore  }); 
+        const score = attempt.score;
+        const passingScore = questions[0].passingScore;
+
+        res.json({ score, passingScore, passed: score >= passingScore }); 
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
+
 
 
 
